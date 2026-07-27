@@ -1,0 +1,55 @@
+{
+  "name": "lumina-document-generator",
+  "version": "1.0.0",
+  "description": "Standalone offline HR Document Generator",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build:frontend": "vite build",
+    "build:win": "electron-packager . \"ilumina Document\" --platform=win32 --arch=x64 --out=dist-electron --overwrite --ignore=dist-electron",
+    "build:mac": "electron-packager . \"ilumina Document for mac\" --platform=darwin --arch=x64,arm64 --out=dist-electron --overwrite --ignore=dist-electron",
+    "build:electron": "npm run build:win && npm run build:mac",
+    "build": "npm run build:frontend && npm run build:electron",
+    "build:single-win": "npm run build:frontend && electron-builder --win",
+    "build:single-mac": "npm run build:frontend && electron-builder --mac",
+    "build:single": "npm run build:single-win",
+    "start": "electron ."
+  },
+  "build": {
+    "appId": "com.ilumina.documentgenerator",
+    "productName": "ilumina Document",
+    "directories": {
+      "output": "dist-single"
+    },
+    "files": [
+      "dist-vite/**/*",
+      "main.js",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable",
+      "artifactName": "ilumina Document.${ext}"
+    },
+    "mac": {
+      "target": "dmg",
+      "identity": null,
+      "artifactName": "ilumina Document for mac.${ext}"
+    }
+  },
+  "dependencies": {
+    "file-saver": "^2.0.5",
+    "html2pdf.js": "^0.14.0",
+    "jszip": "^3.10.1",
+    "lucide-react": "^0.470.0",
+    "nodemailer": "^9.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "electron": "^31.0.0",
+    "electron-builder": "^26.15.3",
+    "electron-packager": "^17.1.2",
+    "vite": "^5.3.1"
+  }
+}
